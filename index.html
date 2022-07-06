@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 1153px;
+            height: 897px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/arrondissements_Canton_de_Geneve_1.js"></script>
+        <script src="data/arrivees_2.js"></script>
+        <script src="data/depart_shp_3.js"></script>
+        <script src="data/temp3_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[45.772706584973584,5.711743651407455],[46.95778624836001,7.863231502834636]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OpenStreetMapStandardakaMapnik_0');
+        map.getPane('pane_OpenStreetMapStandardakaMapnik_0').style.zIndex = 400;
+        var layer_OpenStreetMapStandardakaMapnik_0 = L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenStreetMapStandardakaMapnik_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OpenStreetMapStandardakaMapnik_0;
+        map.addLayer(layer_OpenStreetMapStandardakaMapnik_0);
+        function pop_arrondissements_Canton_de_Geneve_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UUID'] !== null ? autolinker.link(feature.properties['UUID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DATUM_AEND'] !== null ? autolinker.link(feature.properties['DATUM_AEND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DATUM_ERST'] !== null ? autolinker.link(feature.properties['DATUM_ERST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ERSTELL_J'] !== null ? autolinker.link(feature.properties['ERSTELL_J'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ERSTELL_M'] !== null ? autolinker.link(feature.properties['ERSTELL_M'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REVISION_J'] !== null ? autolinker.link(feature.properties['REVISION_J'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REVISION_M'] !== null ? autolinker.link(feature.properties['REVISION_M'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GRUND_AEND'] !== null ? autolinker.link(feature.properties['GRUND_AEND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HERKUNFT'] !== null ? autolinker.link(feature.properties['HERKUNFT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HERKUNFT_J'] !== null ? autolinker.link(feature.properties['HERKUNFT_J'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HERKUNFT_M'] !== null ? autolinker.link(feature.properties['HERKUNFT_M'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJEKTART'] !== null ? autolinker.link(feature.properties['OBJEKTART'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BEZIRKSNUM'] !== null ? autolinker.link(feature.properties['BEZIRKSNUM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SEE_FLAECH'] !== null ? autolinker.link(feature.properties['SEE_FLAECH'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REVISION_Q'] !== null ? autolinker.link(feature.properties['REVISION_Q'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KANTONSNUM'] !== null ? autolinker.link(feature.properties['KANTONSNUM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ICC'] !== null ? autolinker.link(feature.properties['ICC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EINWOHNERZ'] !== null ? autolinker.link(feature.properties['EINWOHNERZ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BFS_NUMMER'] !== null ? autolinker.link(feature.properties['BFS_NUMMER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEM_TEIL'] !== null ? autolinker.link(feature.properties['GEM_TEIL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEM_FLAECH'] !== null ? autolinker.link(feature.properties['GEM_FLAECH'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHN'] !== null ? autolinker.link(feature.properties['SHN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_arrondissements_Canton_de_Geneve_1_0() {
+            return {
+                pane: 'pane_arrondissements_Canton_de_Geneve_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_arrondissements_Canton_de_Geneve_1');
+        map.getPane('pane_arrondissements_Canton_de_Geneve_1').style.zIndex = 401;
+        map.getPane('pane_arrondissements_Canton_de_Geneve_1').style['mix-blend-mode'] = 'normal';
+        var layer_arrondissements_Canton_de_Geneve_1 = new L.geoJson(json_arrondissements_Canton_de_Geneve_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_arrondissements_Canton_de_Geneve_1',
+            layerName: 'layer_arrondissements_Canton_de_Geneve_1',
+            pane: 'pane_arrondissements_Canton_de_Geneve_1',
+            onEachFeature: pop_arrondissements_Canton_de_Geneve_1,
+            style: style_arrondissements_Canton_de_Geneve_1_0,
+        });
+        bounds_group.addLayer(layer_arrondissements_Canton_de_Geneve_1);
+        map.addLayer(layer_arrondissements_Canton_de_Geneve_1);
+        function pop_arrivees_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_arrivees'] !== null ? autolinker.link(feature.properties['id_arrivees'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nom'] !== null ? autolinker.link(feature.properties['Nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_arrivees_2_0() {
+            return {
+                pane: 'pane_arrivees_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(216,216,216,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_arrivees_2');
+        map.getPane('pane_arrivees_2').style.zIndex = 402;
+        map.getPane('pane_arrivees_2').style['mix-blend-mode'] = 'normal';
+        var layer_arrivees_2 = new L.geoJson(json_arrivees_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_arrivees_2',
+            layerName: 'layer_arrivees_2',
+            pane: 'pane_arrivees_2',
+            onEachFeature: pop_arrivees_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_arrivees_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_arrivees_2);
+        map.addLayer(layer_arrivees_2);
+        function pop_depart_shp_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_depart'] !== null ? autolinker.link(feature.properties['id_depart'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nom'] !== null ? autolinker.link(feature.properties['Nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliary_'] !== null ? autolinker.link(feature.properties['auxiliary_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_1'] !== null ? autolinker.link(feature.properties['auxiliar_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_2'] !== null ? autolinker.link(feature.properties['auxiliar_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_3'] !== null ? autolinker.link(feature.properties['auxiliar_3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_4'] !== null ? autolinker.link(feature.properties['auxiliar_4'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_5'] !== null ? autolinker.link(feature.properties['auxiliar_5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_6'] !== null ? autolinker.link(feature.properties['auxiliar_6'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_7'] !== null ? autolinker.link(feature.properties['auxiliar_7'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_8'] !== null ? autolinker.link(feature.properties['auxiliar_8'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar_9'] !== null ? autolinker.link(feature.properties['auxiliar_9'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar10'] !== null ? autolinker.link(feature.properties['auxiliar10'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar11'] !== null ? autolinker.link(feature.properties['auxiliar11'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar12'] !== null ? autolinker.link(feature.properties['auxiliar12'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar13'] !== null ? autolinker.link(feature.properties['auxiliar13'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar14'] !== null ? autolinker.link(feature.properties['auxiliar14'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar15'] !== null ? autolinker.link(feature.properties['auxiliar15'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar16'] !== null ? autolinker.link(feature.properties['auxiliar16'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar17'] !== null ? autolinker.link(feature.properties['auxiliar17'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar18'] !== null ? autolinker.link(feature.properties['auxiliar18'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar19'] !== null ? autolinker.link(feature.properties['auxiliar19'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar20'] !== null ? autolinker.link(feature.properties['auxiliar20'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar21'] !== null ? autolinker.link(feature.properties['auxiliar21'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar22'] !== null ? autolinker.link(feature.properties['auxiliar22'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar23'] !== null ? autolinker.link(feature.properties['auxiliar23'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['auxiliar24'] !== null ? autolinker.link(feature.properties['auxiliar24'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_depart_shp_3_0() {
+            return {
+                pane: 'pane_depart_shp_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(141,90,153,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_depart_shp_3');
+        map.getPane('pane_depart_shp_3').style.zIndex = 403;
+        map.getPane('pane_depart_shp_3').style['mix-blend-mode'] = 'normal';
+        var layer_depart_shp_3 = new L.geoJson(json_depart_shp_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_depart_shp_3',
+            layerName: 'layer_depart_shp_3',
+            pane: 'pane_depart_shp_3',
+            onEachFeature: pop_depart_shp_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_depart_shp_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_depart_shp_3);
+        map.addLayer(layer_depart_shp_3);
+        function pop_temp3_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_arrivee'] !== null ? autolinker.link(feature.properties['id_arrivee'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nom'] !== null ? autolinker.link(feature.properties['Nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HubName'] !== null ? autolinker.link(feature.properties['HubName'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HubDist'] !== null ? autolinker.link(feature.properties['HubDist'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_temp3_4_0() {
+            return {
+                pane: 'pane_temp3_4',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_temp3_4');
+        map.getPane('pane_temp3_4').style.zIndex = 404;
+        map.getPane('pane_temp3_4').style['mix-blend-mode'] = 'normal';
+        var layer_temp3_4 = new L.geoJson(json_temp3_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_temp3_4',
+            layerName: 'layer_temp3_4',
+            pane: 'pane_temp3_4',
+            onEachFeature: pop_temp3_4,
+            style: style_temp3_4_0,
+        });
+        bounds_group.addLayer(layer_temp3_4);
+        map.addLayer(layer_temp3_4);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/temp3_4.png" /> temp3': layer_temp3_4,'<img src="legend/depart_shp_3.png" /> depart_shp': layer_depart_shp_3,'<img src="legend/arrivees_2.png" /> arrivees': layer_arrivees_2,'<img src="legend/arrondissements_Canton_de_Geneve_1.png" /> arrondissements_Canton_de_Geneve': layer_arrondissements_Canton_de_Geneve_1,"OpenStreetMap Standard aka Mapnik": layer_OpenStreetMapStandardakaMapnik_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
